@@ -14,6 +14,8 @@ import com.minenash.customhud.data.HudTheme;
 import com.minenash.customhud.data.Profile;
 import com.minenash.customhud.data.Section;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.emi.emi.api.EmiApi;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
@@ -35,8 +37,12 @@ public class CustomHudRenderer {
     public static void render(DrawContext context, float tickDelta) {
 
         Profile profile = ProfileManager.getActive();
-        if (profile == null || client.getDebugHud().shouldShowDebugHud())
+        if (profile == null || client.getDebugHud().shouldShowDebugHud() || client.options.hudHidden)
             return;
+
+        if (FabricLoader.getInstance().isModLoaded("emi"))
+            if (EmiApi.getHandledScreen() != null)
+                return;
 
         if (profile.baseTheme.getTargetGuiScale() != client.getWindow().getScaleFactor())
             client.onResolutionChanged();

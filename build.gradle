@@ -46,6 +46,9 @@ dependencies {
 		exclude module: "fabric-api"
 	}
 
+	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+
 //	implementation include("com.fifesoft:rsyntaxtextarea:3.3.3")
 //	implementation include("com.formdev:flatlaf:3.1.1")
 
